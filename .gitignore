@@ -1,6 +1,4 @@
-*
-!.gitignore
-/ConsoleApp1/*
-!/ConsoleApp1/ConsoleApp1/
-/ConsoleApp1/ConsoleApp1/*
-!/ConsoleApp1/ConsoleApp1/*.cs
+ConsoleApp1/*
+!ConsoleApp1/ConsoleApp1/
+ConsoleApp1/ConsoleApp1/*
+!ConsoleApp1/ConsoleApp1/Program.cs
