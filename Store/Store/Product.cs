@@ -9,32 +9,39 @@ namespace Store
         string name { get; set; }
         float price { get; set; }
         float quantity { get; set; }
+        dynamic discount { get; set; } = null;
 
         public Product()
         {
-            
+            this.Create();
         }
 
-        public void Create()
+        protected void Create()
         {
             Console.WriteLine("Введите название товара");
-            this.name = this.SetProcuctName();
+            this.SetName();
 
             Console.WriteLine("Введите стоимость товара");
             this.SetPrice();
 
             Console.WriteLine("Введите количество товара");
             this.SetQuantity();
-        }
 
-        public bool Isset()
-        {
-            if (this.name.Length > 0 && this.price > 0 && this.quantity > 0)
+            Console.WriteLine("Создать новую скидку?");
+            Console.WriteLine("Y или YES");
+            string createDiscount = Console.ReadLine().ToLower();
+            if (createDiscount == "y" || createDiscount == "yes")
             {
-                return true;
+                this.CreateDiscount();
             }
 
-            return false;
+            Console.WriteLine($"Вы создали новый товар {this.GetName()} стоимостью {this.GetPrice()}р., количество товара {this.GetQuantity()}");
+            if (this.discount != null)
+            {
+                Console.WriteLine(this.discount.GetInfo());
+                Console.WriteLine($"Стоимость товара со скидкой составляет {this.GetDiscountPrice()}р.");
+            }
+
         }
 
         protected string SetProcuctName()
@@ -76,19 +83,34 @@ namespace Store
 
         }
 
+        public string GetName()
+        {
+            return this.name;
+        }
+
+        public void SetName()
+        {
+            this.name = this.SetProcuctName();
+        }
+
         public float GetPrice()
         {
             return this.price;
         }
 
+        public float GetDiscountPrice()
+        {
+            if (this.discount != null)
+            {
+                return this.discount.GetDiscountPrice(this.GetPrice());
+            }
+
+            return this.GetPrice();
+        }
+
         public void SetPrice()
         {
             this.price = this.SetProductPrice();
-        }
-
-        public string GetName()
-        {
-            return this.name;
         }
 
         public float GetQuantity()
@@ -99,6 +121,35 @@ namespace Store
         public void SetQuantity()
         {
             this.quantity = this.SetProductQuantity();
+        }
+
+        protected void CreateDiscount()
+        {
+            if (Store.ClientDiscount.Length != Store.ClientDiscountDescr.Length)
+            {
+                Console.WriteLine("Количество типов скидок не соответствует количеству описаний");
+                Console.WriteLine("Нажмите Enter для завершения");
+                Console.ReadLine();
+
+                Environment.Exit(0);
+            }
+
+            Console.WriteLine("Выберите тип скидки:");
+
+            for (var i = 0; i < Store.ClientDiscountDescr.Length; i++)
+            {
+                Console.WriteLine((i + 1) + " - " + Store.ClientDiscountDescr[i]);
+            }
+
+            int.TryParse(Console.ReadLine(), out int result);
+
+            if (result > Store.ClientDiscount.Length || result < 1)
+            {
+                Console.WriteLine("Недопустимое значение, посторите попытку");
+                this.CreateDiscount();
+            }
+
+            this.discount = Activator.CreateInstance(Type.GetType("Store.Discount." + Store.ClientDiscount[(result - 1)]));
         }
     }
 }
