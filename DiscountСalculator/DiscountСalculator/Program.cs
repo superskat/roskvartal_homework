@@ -22,7 +22,7 @@ namespace DiscountСalculator
         {
             var product = new Product();
 
-            Console.WriteLine("Введите название продукта");
+            /*Console.WriteLine("Введите название продукта");
 
             product.Name = Console.ReadLine();
 
@@ -37,7 +37,7 @@ namespace DiscountСalculator
                 int.TryParse(Console.ReadLine(), out price);
             }
 
-            product.Price = price;
+            product.Price = price;*/
 
             Console.WriteLine("Введите значение скидки на товар (в % от общей стоимости)");
 

@@ -12,10 +12,10 @@ namespace Store
 
         public Product()
         {
-            this.Create();
+            
         }
 
-        protected void Create()
+        public void Create()
         {
             Console.WriteLine("Введите название товара");
             this.name = this.SetProcuctName();
@@ -25,6 +25,16 @@ namespace Store
 
             Console.WriteLine("Введите количество товара");
             this.SetQuantity();
+        }
+
+        public bool Isset()
+        {
+            if (this.name.Length > 0 && this.price > 0 && this.quantity > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected string SetProcuctName()

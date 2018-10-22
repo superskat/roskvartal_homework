@@ -2,7 +2,7 @@
 {
     public interface IDiscount
     {
-        int CalculateDiscountPrice();
+        float CalculateDiscountPrice(dynamic discount);
         string GetSellInformation();
     }
 }

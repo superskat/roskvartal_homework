@@ -82,5 +82,10 @@ namespace Store.Discount
 
             return price;
         }
+
+        public override string GetInfo()
+        {
+            return $"Скидка составляет {this.value}р. от стоимости товара, действительна с {this.dateStart.ToShortDateString()} по {this.dateEnd.ToShortDateString()}";
+        }
     }
 }

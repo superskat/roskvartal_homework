@@ -62,6 +62,9 @@ namespace Store.Discount
             return false;
         }
 
-        
+        public override string GetInfo()
+        {
+            return $"Скидка составляет {this.value}р. от стоимости товара";
+        }
     }
 }

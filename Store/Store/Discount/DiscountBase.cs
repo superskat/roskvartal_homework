@@ -28,6 +28,8 @@ namespace Store.Discount
 
         abstract public float GetDiscountPrice(float sourcePrice);
 
+        abstract public string GetInfo();
+
         protected float ReadValue()
         {
             Console.WriteLine("Формат ввода x,x");

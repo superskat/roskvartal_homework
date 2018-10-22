@@ -20,27 +20,30 @@ namespace Store
 
         public Store()
         {
-            Product product;
-            dynamic discount;
+            Product product = new Product();
+            dynamic discount = null;
 
             if (this.NeedCreateNewProduct())
             {
-                product = this.CreateNewProduct();
-                if (this.NeedCreateNewDiscount())
-                {
-                    discount = this.CreateNewDiscount();
-                    if (this.NeedShowDiscountPrice())
-                    {
-                        var discountPrice = this.GetProductDiscountPrice(product, discount);
-                        if (discountPrice <= 0)
-                        {
-                            discountPrice = product.GetPrice();
-                        }
-
-                        Console.WriteLine($"Стоимость товара {product.GetName()} с учетом скидки составляет {discountPrice}");
-                    }
-                }
+                product.Create();
             }
+
+            if (this.NeedCreateNewDiscount())
+            {
+                discount = this.CreateNewDiscount();
+            }
+
+            if (this.NeedShowDiscountPrice() && product.Isset() && discount != null)
+            {
+                var discountPrice = this.GetProductDiscountPrice(product.GetPrice(), discount);
+                if (discountPrice <= 0)
+                {
+                    discountPrice = product.GetPrice();
+                }
+
+                Console.WriteLine($"Стоимость товара {product.GetName()} с учетом скидки составляет {discountPrice}. Информаци о скидке: {discount.GetInfo()}");
+            }
+            
         }
 
         protected bool NeedCreateNewProduct()
@@ -57,11 +60,6 @@ namespace Store
             }
 
             return false;
-        }
-
-        protected Product CreateNewProduct()
-        {
-            return new Product();
         }
 
         protected bool NeedCreateNewDiscount()
@@ -125,7 +123,7 @@ namespace Store
             return false;
         }
 
-        public float GetProductDiscountPrice(Product product, dynamic discount)
+        public float GetProductDiscountPrice(float price, dynamic discount)
         {
             if (!discount.IsDiscountValid())
             {
@@ -135,7 +133,7 @@ namespace Store
             {
                 if (discount.IsDiscountAvailable())
                 {
-                    return discount.GetDiscountPrice(product.GetPrice());
+                    return discount.GetDiscountPrice(price);
                 }
                 else
                 {
