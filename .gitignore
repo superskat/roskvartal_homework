@@ -4,5 +4,5 @@ ConsoleApp1/ConsoleApp1/*
 !ConsoleApp1/ConsoleApp1/*.cs
 
 .vs/
-Store/bin/
-Store/obj
+Store/Store/Store/bin/
+Store/Store/Store/obj
