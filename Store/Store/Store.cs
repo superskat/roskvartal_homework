@@ -10,14 +10,41 @@ namespace Store
 
         public Store()
         {
-            this.CreateProduct();
+            this.ShowMenu();
+        }
 
-            this.ShowProducts();
-            
+        protected void ShowMenu()
+        {
+            Console.WriteLine("----------");
+            Console.WriteLine("1 - Создать товар");
+            Console.WriteLine("2 - Показать товары");
+            Console.WriteLine("-----");
+            Console.WriteLine("0 - Выход");
+            Console.WriteLine("----------");
+            int.TryParse(Console.ReadLine(), out int result);
+
+            if (result == 0)
+            {
+                Environment.Exit(0);
+            }
+
+            switch (result)
+            {
+                case 1:
+                    this.CreateProduct();
+                    break;
+                case 2:
+                    this.ShowProducts();
+                    break;
+            }
+
+            this.ShowMenu();
         }
 
         protected void CreateProduct()
         {
+            products.Add(new Product());
+
             Console.WriteLine("----------");
             Console.WriteLine("Создать новый товар?");
             Console.WriteLine("-----");
@@ -28,8 +55,6 @@ namespace Store
 
             if (createProduct == "y" || createProduct == "yes")
             {
-                products.Add(new Product());
-
                 this.CreateProduct();
             }
 
@@ -37,25 +62,23 @@ namespace Store
 
         protected void ShowProducts()
         {
-            Console.WriteLine("----------");
-            Console.WriteLine("Показать список товаров?");
-            Console.WriteLine("-----");
-            Console.WriteLine("Y или N");
-            Console.WriteLine("----------");
-
-            string showProducts = Console.ReadLine().ToLower();
-
-            if (showProducts == "y" || showProducts == "yes")
+            if (this.products.Count == 0)
             {
-                int i = 0;
-                foreach (var product in this.products)
-                {
-                    Console.WriteLine("----------");
-                    Console.Write($"[{i}] ");
-                    product.ShowProductInfo();
-                    i++;
-                }
+                Console.WriteLine("----------");
+                Console.WriteLine("!Список товаров пуст");
+                Console.WriteLine("----------");
+                return;
             }
+
+            int i = 0;
+            foreach (var product in this.products)
+            {
+                Console.WriteLine("----------");
+                Console.Write($"[{i}] ");
+                product.ShowProductInfo();
+                i++;
+            }
+            
         }
     }
 }
