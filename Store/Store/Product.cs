@@ -19,7 +19,7 @@ namespace Store
             this.Create();
         }
 
-        protected void Create()
+        public void Create()
         {
             Console.WriteLine("-----");
             Console.WriteLine("Введите название товара");

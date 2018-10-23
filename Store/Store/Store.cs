@@ -17,7 +17,8 @@ namespace Store
         {
             Console.WriteLine("----------");
             Console.WriteLine("1 - Создать товар");
-            Console.WriteLine("2 - Показать товары");
+            Console.WriteLine("2 - Редактировать товар");
+            Console.WriteLine("3 - Показать товары");
             Console.WriteLine("-----");
             Console.WriteLine("0 - Выход");
             Console.WriteLine("----------");
@@ -34,6 +35,9 @@ namespace Store
                     this.CreateProduct();
                     break;
                 case 2:
+                    this.EditProduct();
+                    break;
+                case 3:
                     this.ShowProducts();
                     break;
             }
@@ -58,6 +62,37 @@ namespace Store
                 this.CreateProduct();
             }
 
+        }
+
+        protected void EditProduct()
+        {
+            Console.WriteLine("----------");
+            Console.WriteLine("Введите номер товара");
+            Console.WriteLine("-----");
+
+            int.TryParse(Console.ReadLine(), out int productIndex);
+
+            if (productIndex > this.products.Count || productIndex < 0)
+            {
+                Console.WriteLine("----------");
+                Console.WriteLine("!Введен некорректный номер товара");
+                Console.WriteLine("----------");
+                Console.WriteLine("Повторить попытку?");
+                Console.WriteLine("-----");
+                Console.WriteLine("Y или N");
+                Console.WriteLine("----------");
+
+                string editProduct = Console.ReadLine().ToLower();
+
+                if (editProduct == "y" || editProduct == "yes")
+                {
+                    this.EditProduct();
+                }
+
+                return;
+            }
+
+            this.products[productIndex].Create();
         }
 
         protected void ShowProducts()
