@@ -92,7 +92,7 @@ namespace Store
                 return;
             }
 
-            this.products[productIndex].Create();
+            this.products[productIndex].Edit();
         }
 
         protected void ShowProducts()

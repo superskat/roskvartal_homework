@@ -9,13 +9,15 @@ namespace Store.Discount
         protected override void Create()
         {
             Console.WriteLine("Текущая дата: " + DateTime.Now);
-
+            Console.WriteLine("----------");
             Console.WriteLine("Введите процент скидки");
             this.value = this.SetDiscountValue();
 
+            Console.WriteLine("-----");
             Console.WriteLine("Введите дату начала действия карты");
             this.dateStart = this.ReadDate();
 
+            Console.WriteLine("-----");
             Console.WriteLine("Введите дату окончания действия карты");
             this.dateEnd = this.ReadDate();
         }

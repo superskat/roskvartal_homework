@@ -32,7 +32,9 @@ namespace Store.Discount
 
         protected float ReadValue()
         {
+            Console.WriteLine("-----");
             Console.WriteLine("Формат ввода x,x");
+            Console.WriteLine("-----");
 
             float.TryParse(Console.ReadLine(), out float result);
 
@@ -41,7 +43,9 @@ namespace Store.Discount
        
         protected DateTime ReadDate()
         {
+            Console.WriteLine("-----");
             Console.WriteLine("Формат даты dd.mm.yyyy");
+            Console.WriteLine("-----");
             if (!DateTime.TryParseExact(Console.ReadLine(), "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
             {
                 Console.WriteLine("Введено некорректное значение, повторите попытку");

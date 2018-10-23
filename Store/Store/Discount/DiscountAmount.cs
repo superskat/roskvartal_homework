@@ -8,6 +8,7 @@ namespace Store.Discount
     {
         protected override void Create()
         {
+            Console.WriteLine("----------");
             Console.WriteLine("Введите сумму скидки");
             this.value = this.SetDiscountValue();
         }

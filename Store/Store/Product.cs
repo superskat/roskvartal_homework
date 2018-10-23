@@ -19,7 +19,7 @@ namespace Store
             this.Create();
         }
 
-        public void Create()
+        protected void Create()
         {
             Console.WriteLine("-----");
             Console.WriteLine("Введите название товара");
@@ -40,6 +40,35 @@ namespace Store
             Console.WriteLine($"Вы создали новый товар {this.GetName()}");
             Console.WriteLine("----------");
             this.ShowProductInfo();
+        }
+
+        public void Edit()
+        {
+            Console.WriteLine("-----\nРедактировать название?[Y или N]");
+            string editName = Console.ReadLine().ToLower();
+            if (editName == "y" || editName == "yes")
+            {
+                Console.WriteLine("Введите название товара");
+                this.SetName();
+            }
+
+            Console.WriteLine("-----\nРедактировать стоимость?[Y или N]");
+            string editPrice = Console.ReadLine().ToLower();
+            if (editPrice == "y" || editPrice == "yes")
+            {
+                Console.WriteLine("Введите стоимость товара");
+                this.SetPrice();
+            }
+
+            Console.WriteLine("-----\nРедактировать количество?[Y или N]");
+            string editQuantity = Console.ReadLine().ToLower();
+            if (editQuantity == "y" || editQuantity == "yes")
+            {
+                Console.WriteLine("Введите количество товара");
+                this.SetQuantity();
+            }
+
+            this.CreateDiscount();
         }
 
         protected string SetProcuctName()
@@ -114,7 +143,7 @@ namespace Store
         protected void CreateDiscount()
         {
             Console.WriteLine("-----");
-            Console.WriteLine("Создать новую скидку?");
+            Console.WriteLine("Создать новую "+(this.haveDiscount() ? "или редактировать" : "") +" скидку?");
             Console.WriteLine("Y или N");
 
             string createDiscount = Console.ReadLine().ToLower();
@@ -160,6 +189,7 @@ namespace Store
                     break;
             }
 
+            Console.WriteLine("----------");
             this.CreateDiscount();
         }
 
@@ -170,22 +200,34 @@ namespace Store
             if (this.discountBonusCard != null)
             {
                 Console.WriteLine("-----");
+                Console.WriteLine("Бонусная карта:");
                 Console.Write(this.discountBonusCard.GetInfo() + ". ");
                 Console.Write($"Стоимость товара со скидкой составляет {this.discountBonusCard.GetDiscountPrice(this.GetPrice())}р.\n");
             }
             if (this.discountPercentCard != null)
             {
                 Console.WriteLine("-----");
+                Console.WriteLine("Скидочная процентная карта:");
                 Console.Write(this.discountPercentCard.GetInfo() + ". ");
                 Console.Write($"Стоимость товара со скидкой составляет {this.discountPercentCard.GetDiscountPrice(this.GetPrice())}р.\n");
             }
             if (this.discountAmount != null)
             {
                 Console.WriteLine("-----");
+                Console.WriteLine("Фиксированная скидка:");
                 Console.Write(this.discountAmount.GetInfo() + ". ");
                 Console.Write($"Стоимость товара со скидкой {this.discountAmount.GetDiscountPrice(this.GetPrice())}р.\n");
             }
             Console.WriteLine("----------");
+        }
+
+        protected bool haveDiscount()
+        {
+            if (this.discountBonusCard != null || this.discountPercentCard != null || this.discountAmount != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
