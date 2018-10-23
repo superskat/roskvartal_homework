@@ -77,7 +77,7 @@ namespace Store.Discount
 
             if (price <= 0)
             {
-                return 0;
+                return sourcePrice;
             }
 
             return price;

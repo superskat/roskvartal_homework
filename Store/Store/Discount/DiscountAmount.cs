@@ -38,6 +38,10 @@ namespace Store.Discount
 
         public override float GetDiscountPrice(float sourcePrice)
         {
+            if (this.value >= sourcePrice)
+            {
+                return sourcePrice;
+            }
             return sourcePrice - this.value;
         }
 

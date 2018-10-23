@@ -6,17 +6,6 @@ namespace Store
 {
     class Store
     {
-        public static string[] ClientDiscount = {
-            "DiscountBonusCard",
-            "DiscountPercentCard",
-            "DiscountAmount"
-        };
-
-        public static string[] ClientDiscountDescr = {
-            "Бонусная карта",
-            "Скидочная карта",
-            "Сумма от стоимость"
-        };
 
         public Store()
         {
@@ -24,15 +13,16 @@ namespace Store
             {
                 Product product = new Product();
             }
-            
 
-            
         }
 
         protected bool NeedCreateNewProduct()
         {
+            Console.WriteLine("----------");
             Console.WriteLine("Создать новый товар?");
+            Console.WriteLine("-----");
             Console.WriteLine("Y или YES");
+            Console.WriteLine("----------");
             string createProduct = Console.ReadLine().ToLower();
             if (createProduct == "y" || createProduct == "yes")
             {

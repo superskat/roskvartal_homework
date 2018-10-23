@@ -9,7 +9,10 @@ namespace Store
         string name { get; set; }
         float price { get; set; }
         float quantity { get; set; }
-        dynamic discount { get; set; } = null;
+
+        protected Discount.DiscountBonusCard discountBonusCard = null;
+        protected Discount.DiscountPercentCard discountPercentCard = null;
+        protected Discount.DiscountAmount discountAmount = null;
 
         public Product()
         {
@@ -18,15 +21,19 @@ namespace Store
 
         protected void Create()
         {
+            Console.WriteLine("-----");
             Console.WriteLine("Введите название товара");
             this.SetName();
 
+            Console.WriteLine("-----");
             Console.WriteLine("Введите стоимость товара");
             this.SetPrice();
 
+            Console.WriteLine("-----");
             Console.WriteLine("Введите количество товара");
             this.SetQuantity();
 
+            Console.WriteLine("-----");
             Console.WriteLine("Создать новую скидку?");
             Console.WriteLine("Y или YES");
             string createDiscount = Console.ReadLine().ToLower();
@@ -35,13 +42,28 @@ namespace Store
                 this.CreateDiscount();
             }
 
+            Console.WriteLine("----------");
             Console.WriteLine($"Вы создали новый товар {this.GetName()} стоимостью {this.GetPrice()}р., количество товара {this.GetQuantity()}");
-            if (this.discount != null)
-            {
-                Console.WriteLine(this.discount.GetInfo());
-                Console.WriteLine($"Стоимость товара со скидкой составляет {this.GetDiscountPrice()}р.");
-            }
 
+            if (this.discountBonusCard != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountBonusCard.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой составляет {this.discountBonusCard.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            if (this.discountPercentCard != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountPercentCard.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой составляет {this.discountPercentCard.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            if (this.discountAmount != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountAmount.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой {this.discountAmount.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            Console.WriteLine("----------");
         }
 
         protected string SetProcuctName()
@@ -98,16 +120,6 @@ namespace Store
             return this.price;
         }
 
-        public float GetDiscountPrice()
-        {
-            if (this.discount != null)
-            {
-                return this.discount.GetDiscountPrice(this.GetPrice());
-            }
-
-            return this.GetPrice();
-        }
-
         public void SetPrice()
         {
             this.price = this.SetProductPrice();
@@ -125,31 +137,51 @@ namespace Store
 
         protected void CreateDiscount()
         {
-            if (Store.ClientDiscount.Length != Store.ClientDiscountDescr.Length)
-            {
-                Console.WriteLine("Количество типов скидок не соответствует количеству описаний");
-                Console.WriteLine("Нажмите Enter для завершения");
-                Console.ReadLine();
-
-                Environment.Exit(0);
-            }
-
+            Console.WriteLine("----------");
             Console.WriteLine("Выберите тип скидки:");
-
-            for (var i = 0; i < Store.ClientDiscountDescr.Length; i++)
-            {
-                Console.WriteLine((i + 1) + " - " + Store.ClientDiscountDescr[i]);
-            }
+            Console.WriteLine("-----");
+            Console.WriteLine("1 - Бонусная карта"+(this.discountBonusCard != null ? " [редактировать]" : ""));
+            Console.WriteLine("2 - Скидочная процентная карта" + (this.discountPercentCard != null ? " [редактировать]" : ""));
+            Console.WriteLine("3 - Фиксированная сумма" + (this.discountAmount != null ? " [редактировать]" : ""));
+            Console.WriteLine("-----");
+            Console.WriteLine("0 - Выход");
+            Console.WriteLine("----------");
 
             int.TryParse(Console.ReadLine(), out int result);
 
-            if (result > Store.ClientDiscount.Length || result < 1)
+            if (result == 0)
             {
-                Console.WriteLine("Недопустимое значение, посторите попытку");
+                return;
+            }
+
+            if (result > 3 || result < 1)
+            {
+                Console.WriteLine("!Ошибка ввода, повторите попытку");
                 this.CreateDiscount();
             }
 
-            this.discount = Activator.CreateInstance(Type.GetType("Store.Discount." + Store.ClientDiscount[(result - 1)]));
+            switch (result)
+            {
+                case 1:
+                    this.discountBonusCard = new Discount.DiscountBonusCard();
+                    break;
+                case 2:
+                    this.discountPercentCard = new Discount.DiscountPercentCard();
+                    break;
+                case 3:
+                    this.discountAmount = new Discount.DiscountAmount();
+                    break;
+            }
+            Console.WriteLine("----------");
+            Console.WriteLine("Добавить новую или редактировать скидку?");
+            Console.WriteLine("-----");
+            Console.WriteLine("Y или YES");
+            Console.WriteLine("----------");
+            string createDiscount = Console.ReadLine().ToLower();
+            if (createDiscount == "y" || createDiscount == "yes")
+            {
+                this.CreateDiscount();
+            }
         }
     }
 }
