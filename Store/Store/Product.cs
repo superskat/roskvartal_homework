@@ -43,27 +43,8 @@ namespace Store
             }
 
             Console.WriteLine("----------");
-            Console.WriteLine($"Вы создали новый товар {this.GetName()} стоимостью {this.GetPrice()}р., количество товара {this.GetQuantity()}");
-
-            if (this.discountBonusCard != null)
-            {
-                Console.WriteLine("-----");
-                Console.Write(this.discountBonusCard.GetInfo() + ". ");
-                Console.Write($"Стоимость товара со скидкой составляет {this.discountBonusCard.GetDiscountPrice(this.GetPrice())}р.\n");
-            }
-            if (this.discountPercentCard != null)
-            {
-                Console.WriteLine("-----");
-                Console.Write(this.discountPercentCard.GetInfo() + ". ");
-                Console.Write($"Стоимость товара со скидкой составляет {this.discountPercentCard.GetDiscountPrice(this.GetPrice())}р.\n");
-            }
-            if (this.discountAmount != null)
-            {
-                Console.WriteLine("-----");
-                Console.Write(this.discountAmount.GetInfo() + ". ");
-                Console.Write($"Стоимость товара со скидкой {this.discountAmount.GetDiscountPrice(this.GetPrice())}р.\n");
-            }
-            Console.WriteLine("----------");
+            Console.WriteLine($"Вы создали новый товар {this.GetName()}");
+            this.ShowProductInfo();
         }
 
         protected string SetProcuctName()
@@ -182,6 +163,32 @@ namespace Store
             {
                 this.CreateDiscount();
             }
+        }
+
+        public void ShowProductInfo()
+        {
+            Console.WriteLine("----------");
+            Console.WriteLine($"Название товара: {this.GetName()}, стоимость: {this.GetPrice()}р., количество: {this.GetQuantity()}");
+
+            if (this.discountBonusCard != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountBonusCard.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой составляет {this.discountBonusCard.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            if (this.discountPercentCard != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountPercentCard.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой составляет {this.discountPercentCard.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            if (this.discountAmount != null)
+            {
+                Console.WriteLine("-----");
+                Console.Write(this.discountAmount.GetInfo() + ". ");
+                Console.Write($"Стоимость товара со скидкой {this.discountAmount.GetDiscountPrice(this.GetPrice())}р.\n");
+            }
+            Console.WriteLine("----------");
         }
     }
 }

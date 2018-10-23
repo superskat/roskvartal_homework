@@ -7,7 +7,7 @@ namespace Store.Discount
     abstract class DiscountBase
     {
         protected DateTime dateStart = new DateTime(1970, 01, 01);
-        protected DateTime dateEnd = new DateTime(1979, 01, 01);
+        protected DateTime dateEnd = new DateTime(1970, 01, 02);
 
         protected float value { get; set;}
 

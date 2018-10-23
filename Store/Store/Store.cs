@@ -6,14 +6,32 @@ namespace Store
 {
     class Store
     {
+        protected List<Product> products { get; set; } = new List<Product>();
 
         public Store()
         {
+            this.CreateProduct();
+
+            Console.WriteLine("----------");
+            Console.WriteLine("Показать список товаров?");
+            Console.WriteLine("-----");
+            Console.WriteLine("Y или YES");
+            Console.WriteLine("----------");
+            string showProducts = Console.ReadLine().ToLower();
+            if (showProducts == "y" || showProducts == "yes")
+            {
+                this.ShowProducts();
+            }
+        }
+
+        protected void CreateProduct()
+        {
             if (this.NeedCreateNewProduct())
             {
-                Product product = new Product();
-            }
+                products.Add(new Product());
 
+                this.CreateProduct();
+            }
         }
 
         protected bool NeedCreateNewProduct()
@@ -31,6 +49,13 @@ namespace Store
 
             return false;
         }
-        
+
+        protected void ShowProducts()
+        {
+            foreach (var product in this.products)
+            {
+                product.ShowProductInfo();
+            }
+        }
     }
 }
