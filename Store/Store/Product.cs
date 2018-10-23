@@ -33,17 +33,12 @@ namespace Store
             Console.WriteLine("Введите количество товара");
             this.SetQuantity();
 
-            Console.WriteLine("-----");
-            Console.WriteLine("Создать новую скидку?");
-            Console.WriteLine("Y или YES");
-            string createDiscount = Console.ReadLine().ToLower();
-            if (createDiscount == "y" || createDiscount == "yes")
-            {
-                this.CreateDiscount();
-            }
 
+            this.CreateDiscount();
+            
             Console.WriteLine("----------");
             Console.WriteLine($"Вы создали новый товар {this.GetName()}");
+            Console.WriteLine("----------");
             this.ShowProductInfo();
         }
 
@@ -118,6 +113,17 @@ namespace Store
 
         protected void CreateDiscount()
         {
+            Console.WriteLine("-----");
+            Console.WriteLine("Создать новую скидку?");
+            Console.WriteLine("Y или N");
+
+            string createDiscount = Console.ReadLine().ToLower();
+
+            if (createDiscount != "y" && createDiscount != "yes")
+            {
+                return;
+            }
+
             Console.WriteLine("----------");
             Console.WriteLine("Выберите тип скидки:");
             Console.WriteLine("-----");
@@ -153,22 +159,13 @@ namespace Store
                     this.discountAmount = new Discount.DiscountAmount();
                     break;
             }
-            Console.WriteLine("----------");
-            Console.WriteLine("Добавить новую или редактировать скидку?");
-            Console.WriteLine("-----");
-            Console.WriteLine("Y или YES");
-            Console.WriteLine("----------");
-            string createDiscount = Console.ReadLine().ToLower();
-            if (createDiscount == "y" || createDiscount == "yes")
-            {
-                this.CreateDiscount();
-            }
+
+            this.CreateDiscount();
         }
 
         public void ShowProductInfo()
         {
-            Console.WriteLine("----------");
-            Console.WriteLine($"Название товара: {this.GetName()}, стоимость: {this.GetPrice()}р., количество: {this.GetQuantity()}");
+            Console.Write($"Название товара: {this.GetName()}, стоимость: {this.GetPrice()}р., количество: {this.GetQuantity()}\n");
 
             if (this.discountBonusCard != null)
             {

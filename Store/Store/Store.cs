@@ -12,49 +12,49 @@ namespace Store
         {
             this.CreateProduct();
 
-            Console.WriteLine("----------");
-            Console.WriteLine("Показать список товаров?");
-            Console.WriteLine("-----");
-            Console.WriteLine("Y или YES");
-            Console.WriteLine("----------");
-            string showProducts = Console.ReadLine().ToLower();
-            if (showProducts == "y" || showProducts == "yes")
-            {
-                this.ShowProducts();
-            }
+            this.ShowProducts();
+            
         }
 
         protected void CreateProduct()
         {
-            if (this.NeedCreateNewProduct())
+            Console.WriteLine("----------");
+            Console.WriteLine("Создать новый товар?");
+            Console.WriteLine("-----");
+            Console.WriteLine("Y или N");
+            Console.WriteLine("----------");
+
+            string createProduct = Console.ReadLine().ToLower();
+
+            if (createProduct == "y" || createProduct == "yes")
             {
                 products.Add(new Product());
 
                 this.CreateProduct();
             }
-        }
 
-        protected bool NeedCreateNewProduct()
-        {
-            Console.WriteLine("----------");
-            Console.WriteLine("Создать новый товар?");
-            Console.WriteLine("-----");
-            Console.WriteLine("Y или YES");
-            Console.WriteLine("----------");
-            string createProduct = Console.ReadLine().ToLower();
-            if (createProduct == "y" || createProduct == "yes")
-            {
-                return true;
-            }
-
-            return false;
         }
 
         protected void ShowProducts()
         {
-            foreach (var product in this.products)
+            Console.WriteLine("----------");
+            Console.WriteLine("Показать список товаров?");
+            Console.WriteLine("-----");
+            Console.WriteLine("Y или N");
+            Console.WriteLine("----------");
+
+            string showProducts = Console.ReadLine().ToLower();
+
+            if (showProducts == "y" || showProducts == "yes")
             {
-                product.ShowProductInfo();
+                int i = 0;
+                foreach (var product in this.products)
+                {
+                    Console.WriteLine("----------");
+                    Console.Write($"[{i}] ");
+                    product.ShowProductInfo();
+                    i++;
+                }
             }
         }
     }
