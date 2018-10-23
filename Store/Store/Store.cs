@@ -72,7 +72,7 @@ namespace Store
 
             int.TryParse(Console.ReadLine(), out int productIndex);
 
-            if (productIndex > this.products.Count || productIndex < 0)
+            if (productIndex >= this.products.Count || productIndex < 0)
             {
                 Console.WriteLine("----------");
                 Console.WriteLine("!Введен некорректный номер товара");
