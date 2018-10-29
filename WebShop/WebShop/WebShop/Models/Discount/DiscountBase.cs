@@ -7,6 +7,8 @@ namespace WebShop.Models
 {
     abstract public class DiscountBase
     {
+        public List<Order> orders { get; set; }
+
         public abstract decimal Apply(decimal price);
     }
 }

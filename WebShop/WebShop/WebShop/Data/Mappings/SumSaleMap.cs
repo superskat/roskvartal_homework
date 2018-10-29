@@ -8,9 +8,9 @@ using WebShop.Models;
 
 namespace WebShop.Data.Mappings
 {
-    public class PercentCardMap : IEntityTypeConfiguration<Models.Discount.PercentCard>
+    public class SumSaleMap : IEntityTypeConfiguration<Models.Discount.SumSale>
     {
-        public void Configure(EntityTypeBuilder<Models.Discount.PercentCard> builder)
+        public void Configure(EntityTypeBuilder<Models.Discount.SumSale> builder)
         {
             builder.HasKey(x => x.id);
             builder.HasMany(x => x.orders);

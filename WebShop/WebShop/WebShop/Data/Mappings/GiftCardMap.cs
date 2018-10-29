@@ -13,6 +13,7 @@ namespace WebShop.Data.Mappings
         public void Configure(EntityTypeBuilder<Models.Discount.GiftCard> builder)
         {
             builder.HasKey(x => x.id);
+            builder.HasMany(x => x.orders);
         }
     }
 }

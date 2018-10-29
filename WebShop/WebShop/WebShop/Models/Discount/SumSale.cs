@@ -7,6 +7,7 @@ namespace WebShop.Models.Discount
 {
     public class SumSale : DiscountBase
     {
+        public int id { get; set; }
         public decimal sum { get; private set; }
 
         public SumSale(decimal sum)

@@ -59,8 +59,6 @@ namespace WebShop
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("shop", "shop", new { Controller = "WebShop", Action = "Index" });
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
